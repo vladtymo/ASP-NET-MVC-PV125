@@ -1,0 +1,33 @@
+﻿@model List<asp_net_mvc_pv125.Models.Product>
+
+<h1>Products List</h1>
+
+@* Razor Engine Operators: @if @for... @switch @{ code } *@
+
+@if (Model.Any())
+{
+    <p>Count of products: @Model.Count</p>
+}
+else
+{
+    <p>No products here yet!</p>
+}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var p in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                @*<img src="..." class="card-img-top" alt="...">*@
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">
+                        @p.Category
+                        <span class="badge bg-primary">@p.Price$</span>
+                    </p>
+                    <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-dark">Show Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
