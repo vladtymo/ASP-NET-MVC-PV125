@@ -1,29 +1,31 @@
-﻿using asp_net_mvc_pv125.Helpers;
-using asp_net_mvc_pv125.Models;
+﻿using DataAccess;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace asp_net_mvc_pv125.Controllers
 {
     public class ProductsController : Controller
     {
-        List<Product> products = new List<Product>(Seeder.GetProducts());
+        ShopDbContext context = new ShopDbContext();
+
         public ProductsController()
         {
         }
 
         public IActionResult Index()
         {
-            // TODO: get data from db
-
-            return View(products);
+            // get data from db
+            return View(context.Products.ToList());
         }
 
         public IActionResult Details(int id)
         {
-            // get product by id
-            var product = products.FirstOrDefault(x => x.Id == id);
+            if (id < 0) return BadRequest(); // error 400
 
-            if (product == null) return NotFound();
+            // get product by id
+            var product = context.Products.Find(id);
+
+            if (product == null) return NotFound(); // error 404
 
             return View(product);
         }
