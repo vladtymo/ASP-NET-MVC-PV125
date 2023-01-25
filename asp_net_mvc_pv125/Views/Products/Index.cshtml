@@ -20,7 +20,9 @@ else
     {
         <div class="col">
             <div class="card h-100">
-                @*<img src="..." class="card-img-top" alt="...">*@
+                <div class="product-card-image">
+                    <img src="@(p.ImagePath ?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png")" class="card-img-top" alt="Product Image">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">@p.Name</h5>
                     <p class="card-text">
@@ -28,6 +30,12 @@ else
                         <span class="badge bg-primary">@p.Price$</span>
                     </p>
                     <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-dark">Show Details</a>
+                    <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
                 </div>
             </div>
         </div>

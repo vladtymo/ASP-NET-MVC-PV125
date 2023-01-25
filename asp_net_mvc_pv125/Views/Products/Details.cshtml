@@ -3,6 +3,9 @@
 <div class="card text-center">
     <h2 class="card-header">Product Detail Information</h2>
     <div class="card-body">
+        <div class="product-image">
+            <img src="@(Model.ImagePath ?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png")" class="card-img-top" alt="Product Image">
+        </div>
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">
             @Model.Category
