@@ -52,9 +52,14 @@ namespace asp_net_mvc_pv125.Controllers
 
         // POST: ~/Products/Create
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product) // product - model
         {
-            // TODO: add validations
+            // validations
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                return View(product);
+            }
 
             // add product to db
             context.Products.Add(product);
@@ -79,7 +84,12 @@ namespace asp_net_mvc_pv125.Controllers
         [HttpPost]
         public IActionResult Edit(Product product)
         {
-            // TODO: add validations
+            // validations
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                return View(product);
+            }
 
             // edit product in db
             context.Products.Update(product);
