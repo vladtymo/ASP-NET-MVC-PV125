@@ -18,14 +18,13 @@ namespace DataAccess.Entities
 
         public int Id { get; set; }
 
-        [Required, MinLength(2)]
+        //[Required, MinLength(2)]
         public string Name { get; set; }
 
-        [Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to 0")]
-        
+        //[Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to 0")]
         public decimal Price { get; set; }
 
-        [Url]
+        //[Url]
         public string? ImagePath { get; set; }
 
         public int CategoryId { get; set; }
