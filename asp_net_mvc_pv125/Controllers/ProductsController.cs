@@ -1,4 +1,4 @@
-﻿using DataAccess;
+﻿using BusinessLogic.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,11 +7,11 @@ namespace asp_net_mvc_pv125.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ShopDbContext context;
+        private readonly IProductsService productsService;
 
-        public ProductsController(ShopDbContext context)
+        public ProductsController(IProductsService productsService)
         {
-            this.context = context;
+            this.productsService = productsService;
         }
 
         private void LoadCategories()
@@ -20,14 +20,13 @@ namespace asp_net_mvc_pv125.Controllers
             // ViewData["List"] = new List<int>() { 1, 2, 3 };
 
             // ViewBag is a dynamic property (dynamic keyword which is introduced in .net framework 4.0)
-            ViewBag.CategoryList = new SelectList(context.Categories.ToList(), nameof(Category.Id), nameof(Category.Name));
+            ViewBag.CategoryList = new SelectList(productsService.GetCategories(), nameof(Category.Id), nameof(Category.Name));
         }
 
         // GET: ~/Products/Index
         public IActionResult Index()
         {
-            // get data from db
-            return View(context.Products.ToList());
+            return View(productsService.GetAll());
         }
 
         // GET: ~/Products/Details/{id}
@@ -36,7 +35,7 @@ namespace asp_net_mvc_pv125.Controllers
             if (id < 0) return BadRequest(); // error 400
 
             // get product by id
-            var product = context.Products.Find(id);
+            var product = productsService.GetById(id);
 
             if (product == null) return NotFound(); // error 404
 
@@ -61,10 +60,7 @@ namespace asp_net_mvc_pv125.Controllers
                 return View(product);
             }
 
-            // add product to db
-            context.Products.Add(product);
-            context.SaveChanges();
-
+            productsService.Create(product);
             return RedirectToAction(nameof(Index));
         }
 
@@ -72,7 +68,7 @@ namespace asp_net_mvc_pv125.Controllers
         public IActionResult Edit(int id)
         {
             // get element by id
-            var product = context.Products.Find(id);
+            var product = productsService.GetById(id);
 
             if (product == null) return NotFound();
 
@@ -91,25 +87,14 @@ namespace asp_net_mvc_pv125.Controllers
                 return View(product);
             }
 
-            // edit product in db
-            context.Products.Update(product);
-            context.SaveChanges();
-
+            productsService.Edit(product);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: ~/Products/Delete/{id}
         public IActionResult Delete(int id)
         {
-            // get element by id
-            var product = context.Products.Find(id);
-
-            if (product == null) return NotFound();
-
-            // delete element from db
-            context.Products.Remove(product);
-            context.SaveChanges();
-
+            productsService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }

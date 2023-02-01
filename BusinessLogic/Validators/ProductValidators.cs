@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities;
 using FluentValidation;
 
-namespace asp_net_mvc_pv125.Validators
+namespace BusinessLogic.Validators
 {
     public class ProductValidators : AbstractValidator<Product>
     {

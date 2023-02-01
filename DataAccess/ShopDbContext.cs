@@ -1,5 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess.Configurations;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using System.Reflection.Emit;
 
 namespace DataAccess
@@ -18,6 +20,8 @@ namespace DataAccess
             modelBuilder.SeedProducts();
             //DbContextExtensions.SeedCategories(modelBuilder);
             //DbContextExtensions.SeedProducts(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ProductConfigurations());
         }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
