@@ -20,30 +20,8 @@ else
     {
         <div class="col">
             <div class="card h-100">
-                @*<div class="product-card-image">
-                <img src="@(p.ImagePath ?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png")" class="card-img-top" alt="Product Image">
-                </div>*@
-                <div id="carousel-@p.Id" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" data-bs-touch=true>
-                    <div class="carousel-inner">
-                        @* load product images from model *@
-                        <div class="carousel-item active product-card-image">
-                            <img src="@p.ImagePath" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item product-card-image">
-                            <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-math-90946.jpg&fm=jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item product-card-image">
-                            <img src="https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png" class="d-block w-100" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                <div class="product-card-image">
+                    <img src="@(p.ImagePath ?? "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png")" class="card-img-top" alt="Product Image">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">@p.Name</h5>
@@ -51,7 +29,7 @@ else
                         @p.Category
                         <span class="badge bg-primary">@p.Price$</span>
                     </p>
-                    <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-dark">Show Details</a>
+                    <a asp-action="Details" asp-route-id="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-dark">Show Details</a>
                     <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-warning">
                         <i class="bi bi-pencil-square"></i>
                     </a>

@@ -30,7 +30,7 @@ namespace asp_net_mvc_pv125.Controllers
         }
 
         // GET: ~/Products/Details/{id}
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string returnUrl = null)
         {
             if (id < 0) return BadRequest(); // error 400
 
@@ -39,6 +39,7 @@ namespace asp_net_mvc_pv125.Controllers
 
             if (product == null) return NotFound(); // error 404
 
+            ViewBag.ReturnUrl = returnUrl;
             return View(product);
         }
 

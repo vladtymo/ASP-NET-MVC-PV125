@@ -1,4 +1,5 @@
 ﻿using asp_net_mvc_pv125.Models;
+using BusinessLogic.Services;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,13 +8,20 @@ namespace asp_net_mvc_pv125.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IProductsService productsService;
+
+        public HomeController(IProductsService productsService)
+        {
+            this.productsService = productsService;
+        }
+
         public IActionResult Index()
         {
             // code...
 
             // View search pattern: ~/Views/{ControllerName}/{ActionName}
             // Current view path: ~Views/Home/Index.cshtml
-            return View();
+            return View(productsService.GetAll());
         }
 
         public IActionResult Privacy()

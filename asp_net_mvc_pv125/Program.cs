@@ -26,6 +26,12 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 // Transient: The IoC container will create a new instance of the specified service type every time you ask for it.
 //builder.Services.AddTransient<IProductsService, ProductsService>();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -43,6 +49,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

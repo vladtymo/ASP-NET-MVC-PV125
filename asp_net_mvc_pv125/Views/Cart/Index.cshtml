@@ -1,0 +1,24 @@
+﻿@model DataAccess.Entities.Product;
+
+<div class="card text-center">
+    <div class="card-header">
+        Your Cart
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Product List</h5>
+        <div>
+            @if (Model != null)
+            {
+                <span>@Model.Name @Model.Price$</span>
+            }
+            else
+            {
+                <p>No products in the cart!</p>
+            }
+        </div>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+        Count: 1
+    </div>
+</div>

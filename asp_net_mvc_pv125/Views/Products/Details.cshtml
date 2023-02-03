@@ -11,6 +11,14 @@
             @Model.Category
             <span class="badge bg-primary">@Model.Price$</span>
         </p>
-        <a asp-action="Index" class="btn btn-dark">Back</a>
+
+        @if(ViewBag.ReturnUrl == null)
+        {
+            <a asp-action="Index" class="btn btn-dark">Back</a>
+        }
+        else
+        {
+            <a href="@ViewBag.ReturnUrl" class="btn btn-dark">Back</a>
+        }
     </div>
 </div>

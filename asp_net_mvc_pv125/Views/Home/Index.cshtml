@@ -1,9 +1,51 @@
 ﻿<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Product Catalog</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var p in Model)
+    {
+        <div class="col">
+            <a class="card-link-block" asp-controller="Products"
+                                       asp-action="Details"
+                                       asp-route-id="@p.Id"
+                                       asp-route-returnUrl="@Context.Request.Path">
+                <div class="card h-100">
+                    <div id="carousel-@p.Id" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" data-bs-touch=true>
+                        <div class="carousel-inner">
+                            @* load product images from model *@
+                            <div class="carousel-item active product-card-image">
+                                <img src="@p.ImagePath" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item product-card-image">
+                                <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-math-90946.jpg&fm=jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item product-card-image">
+                                <img src="https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@p.Name</h5>
+                        <p class="card-text">
+                            @p.Category
+                            <span class="badge bg-primary">@p.Price$</span>
+                        </p>
+                        <a asp-controller="Cart" asp-action="Add" asp-route-productId="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-dark mt-2">
+                            <i class="bi bi-bag-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
 </div>
-
