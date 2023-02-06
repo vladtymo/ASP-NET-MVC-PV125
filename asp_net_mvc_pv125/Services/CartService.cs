@@ -51,6 +51,9 @@ namespace asp_net_mvc_pv125.Services
         public bool IsInCart(int productId)
         {
             var productIds = httpContext.Session.GetObject<List<int>>("cart");
+
+            if (productIds == null) return false;
+
             return productIds.Contains(productId);
         }
     }
