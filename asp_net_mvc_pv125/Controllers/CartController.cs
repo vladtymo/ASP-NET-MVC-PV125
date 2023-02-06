@@ -1,4 +1,6 @@
-﻿using BusinessLogic.Services;
+﻿using asp_net_mvc_pv125.Services;
+using BusinessLogic;
+using BusinessLogic.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
@@ -7,30 +9,27 @@ namespace asp_net_mvc_pv125.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IProductsService productsService;
+        private readonly ICartService cartService;
 
-        public CartController(IProductsService productsService)
+        public CartController(ICartService cartService)
         {
-            this.productsService = productsService;
+            this.cartService = cartService;
         }
 
         public IActionResult Index()
         {
-            var productId = HttpContext.Session.GetObject<int?>("cart");
-
-            Product product = null;
-            if (productId != null)
-            {
-                product = productsService.GetById(productId.Value);
-            }
-
-            return View(product);
+            return View(cartService.GetProducts());
         }
 
         public IActionResult Add(int productId, string returnUrl)
         {
-            HttpContext.Session.SetObject("cart", productId);
+            cartService.Add(productId);
+            return Redirect(returnUrl);
+        }
 
+        public IActionResult Remove(int productId, string returnUrl)
+        {
+            cartService.Remove(productId);
             return Redirect(returnUrl);
         }
     }

@@ -1,3 +1,5 @@
+using asp_net_mvc_pv125.Services;
+using BusinessLogic;
 using BusinessLogic.Services;
 using DataAccess;
 using FluentValidation;
@@ -22,16 +24,19 @@ builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssembli
 
 // Scoped: IoC container will create an instance of the specified service type once per request and will be shared in a single request.
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 // Transient: The IoC container will create a new instance of the specified service type every time you ask for it.
 //builder.Services.AddTransient<IProductsService, ProductsService>();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    //options.IdleTimeout = TimeSpan.FromDays(10);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

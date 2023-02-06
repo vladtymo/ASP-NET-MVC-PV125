@@ -35,7 +35,7 @@ namespace asp_net_mvc_pv125.Controllers
             if (id < 0) return BadRequest(); // error 400
 
             // get product by id
-            var product = productsService.GetById(id);
+            var product = productsService.Get(id);
 
             if (product == null) return NotFound(); // error 404
 
@@ -69,7 +69,7 @@ namespace asp_net_mvc_pv125.Controllers
         public IActionResult Edit(int id)
         {
             // get element by id
-            var product = productsService.GetById(id);
+            var product = productsService.Get(id);
 
             if (product == null) return NotFound();
 

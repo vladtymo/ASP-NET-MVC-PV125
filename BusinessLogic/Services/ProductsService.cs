@@ -3,16 +3,6 @@ using DataAccess.Entities;
 
 namespace BusinessLogic.Services
 {
-    public interface IProductsService
-    {
-        List<Category> GetCategories();
-        List<Product> GetAll();
-        Product? GetById(int id);
-        void Create(Product product);
-        void Edit(Product product);
-        void Delete(int id);
-    }
-
     public class ProductsService : IProductsService
     {
         private readonly ShopDbContext context;
@@ -30,7 +20,7 @@ namespace BusinessLogic.Services
 
         public void Delete(int id)
         {
-            var product = GetById(id);
+            var product = Get(id);
 
             if (product == null) return;
 
@@ -50,7 +40,7 @@ namespace BusinessLogic.Services
             return context.Products.ToList();
         }
 
-        public Product? GetById(int id)
+        public Product? Get(int id)
         {
             if (id < 0) return null; // exception
 
@@ -65,6 +55,11 @@ namespace BusinessLogic.Services
         public List<Category> GetCategories()
         {
             return context.Categories.ToList();
+        }
+
+        public List<Product> Get(int[] ids)
+        {
+            return context.Products.Where(x => ids.Contains(x.Id)).ToList();
         }
     }
 }
