@@ -2,6 +2,7 @@ using asp_net_mvc_pv125.Services;
 using BusinessLogic;
 using BusinessLogic.Services;
 using DataAccess;
+using DataAccess.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,16 +19,15 @@ builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connStr));
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-// Add Custom Services
-// Singleton: IoC container will create and share a single instance of a service throughout the application's lifetime.
-//builder.Services.AddSingleton<IProductsService, ProductsService>();
+// Add Custom Services types:
+//  - Singleton: IoC container will create and share a single instance of a service throughout the application's lifetime.
+//  - Scoped: IoC container will create an instance of the specified service type once per request and will be shared in a single request.
+//  - Transient: The IoC container will create a new instance of the specified service type every time you ask for it.
 
-// Scoped: IoC container will create an instance of the specified service type once per request and will be shared in a single request.
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+// configure services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
-
-// Transient: The IoC container will create a new instance of the specified service type every time you ask for it.
-//builder.Services.AddTransient<IProductsService, ProductsService>();
 
 builder.Services.AddSession(options =>
 {

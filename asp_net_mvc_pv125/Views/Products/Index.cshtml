@@ -26,7 +26,10 @@ else
                 <div class="card-body">
                     <h5 class="card-title">@p.Name</h5>
                     <p class="card-text">
-                        @p.Category
+                        @if (p.Category != null) 
+                        { 
+                            @p.Category.Name
+                        }
                         <span class="badge bg-primary">@p.Price$</span>
                     </p>
                     <a asp-action="Details" asp-route-id="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-dark">Show Details</a>

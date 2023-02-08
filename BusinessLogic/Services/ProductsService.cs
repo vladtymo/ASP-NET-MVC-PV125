@@ -1,21 +1,26 @@
 ﻿using DataAccess;
 using DataAccess.Entities;
+using DataAccess.Interfaces;
 
 namespace BusinessLogic.Services
 {
     public class ProductsService : IProductsService
     {
-        private readonly ShopDbContext context;
+        //private readonly ShopDbContext context;
+        private readonly IRepository<Product> productRepo;
+        private readonly IRepository<Category> categoryRepo;
 
-        public ProductsService(ShopDbContext context)
+        public ProductsService(IRepository<Product> productRepo,
+                               IRepository<Category> categoryRepo)
         {
-            this.context = context;
+            this.productRepo = productRepo;
+            this.categoryRepo = categoryRepo;
         }
 
         public void Create(Product product)
         {
-            context.Products.Add(product);
-            context.SaveChanges();
+            productRepo.Insert(product);
+            productRepo.Save();
         }
 
         public void Delete(int id)
@@ -25,19 +30,20 @@ namespace BusinessLogic.Services
             if (product == null) return;
 
             // delete element from db
-            context.Products.Remove(product);
-            context.SaveChanges();
+            productRepo.Delete(product);
+            productRepo.Save();
         }
 
         public void Edit(Product product)
         {
-            context.Products.Update(product);
-            context.SaveChanges();
+            productRepo.Update(product);
+            productRepo.Save();
         }
 
         public List<Product> GetAll()
         {
-            return context.Products.ToList();
+            // include properties: LEFT JOIN in SQL
+            return productRepo.Get(includeProperties: new[] { "Category" }).ToList();
         }
 
         public Product? Get(int id)
@@ -45,7 +51,7 @@ namespace BusinessLogic.Services
             if (id < 0) return null; // exception
 
             // get product by id
-            var product = context.Products.Find(id);
+            var product = productRepo.GetByID(id);
 
             //if (product == null) return null; // exception
 
@@ -54,12 +60,12 @@ namespace BusinessLogic.Services
 
         public List<Category> GetCategories()
         {
-            return context.Categories.ToList();
+            return categoryRepo.Get().ToList();
         }
 
         public List<Product> Get(int[] ids)
         {
-            return context.Products.Where(x => ids.Contains(x.Id)).ToList();
+            return productRepo.Get(x => ids.Contains(x.Id)).ToList();
         }
     }
 }
