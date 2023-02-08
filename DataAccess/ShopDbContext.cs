@@ -26,7 +26,7 @@ namespace DataAccess
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    base.OnConfiguring(optionsBuilder);
-        //    string connStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PV125_SHOP_DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //    string connStr = @"workstation id=pvd125shop.mssql.somee.com;packet size=4096;user id=wladnaz_SQLLogin_1;pwd=qsyiy5d3ff;data source=pvd125shop.mssql.somee.com;persist security info=False;initial catalog=pvd125shop";
         //    optionsBuilder.UseSqlServer(connStr);
         //}
 
