@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 
 namespace DataAccess
 {
-    public class ShopDbContext : IdentityDbContext
+    public class ShopDbContext : IdentityDbContext<User>
     {
         public ShopDbContext() : base() { }
         public ShopDbContext(DbContextOptions options) : base(options) { }
@@ -34,5 +34,6 @@ namespace DataAccess
         // ---------------- Data Collections ----------------
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

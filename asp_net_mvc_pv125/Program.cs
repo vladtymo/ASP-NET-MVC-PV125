@@ -7,6 +7,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using DataAccess.Entities;
+using BusinessLogic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,7 @@ string connStr = builder.Configuration.GetConnectionString("LocalDb");
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
+builder.Services.AddDefaultIdentity<User>(
     options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ShopDbContext>();
 
@@ -33,6 +35,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // configure services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddSession(options =>
 {
