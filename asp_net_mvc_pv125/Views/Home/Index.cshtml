@@ -1,6 +1,4 @@
-﻿@using BusinessLogic
-@model List<DataAccess.Entities.Product>
-@inject ICartService CartService
+﻿@model List<DataAccess.Entities.Product>
 
 <div class="text-center">
     <h1 class="display-4">Product Catalog</h1>
@@ -10,56 +8,6 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var p in Model)
     {
-        <div class="col">
-            <a class="card-link-block" asp-controller="Products"
-                                       asp-action="Details"
-                                       asp-route-id="@p.Id"
-                                       asp-route-returnUrl="@Context.Request.Path">
-                <div class="card h-100">
-                    <div id="carousel-@p.Id" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false" data-bs-touch=true>
-                        <div class="carousel-inner">
-                            @* load product images from model *@
-                            <div class="carousel-item active product-card-image">
-                                <img src="@p.ImagePath" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item product-card-image">
-                                <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1570119347612" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item product-card-image">
-                                <img src="https://www.junglescout.com/wp-content/uploads/2021/01/product-photo-water-bottle-hero.png" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-@p.Id" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title">@p.Name</h5>
-                        <p class="card-text">
-                            @p.Category.Name
-                            <span class="badge bg-primary">@p.Price$</span>
-                        </p>
-
-                        @if(CartService.IsInCart(p.Id))
-                        {
-                            <a asp-controller="Cart" asp-action="Remove" asp-route-productId="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-danger mt-2">
-                                <i class="bi bi-bag-plus"></i> Remove from Cart
-                            </a>
-                        }
-                        else
-                        {
-                            <a asp-controller="Cart" asp-action="Add" asp-route-productId="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-success mt-2">
-                                <i class="bi bi-bag-plus"></i> Add to Cart
-                            </a>
-                        }
-                    </div>
-                </div>
-            </a>
-        </div>
+        <partial name="_ProductCardPartial" model="@p" />
     }
 </div>

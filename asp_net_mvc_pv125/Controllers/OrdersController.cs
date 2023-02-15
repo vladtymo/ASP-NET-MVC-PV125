@@ -1,11 +1,13 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Interfaces;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace asp_net_mvc_pv125.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IOrdersService ordersService;
@@ -20,7 +22,7 @@ namespace asp_net_mvc_pv125.Controllers
         {
             return View(ordersService.GetAll(UserId));
         }
-
+       
         public IActionResult Create()
         {
             ordersService.Create(UserId);
