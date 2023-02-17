@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace asp_net_mvc_pv125.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductsService productsService;
@@ -25,12 +26,14 @@ namespace asp_net_mvc_pv125.Controllers
         }
 
         // GET: ~/Products/Index
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(productsService.GetAll());
         }
 
         // GET: ~/Products/Details/{id}
+        [AllowAnonymous]
         public IActionResult Details(int id, string returnUrl = null)
         {
             if (id < 0) return BadRequest(); // error 400

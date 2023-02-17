@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DataAccess.Entities;
 using BusinessLogic.Interfaces;
+using Microsoft.Extensions.Hosting;
+using asp_net_mvc_pv125;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +21,10 @@ string connStr = builder.Configuration.GetConnectionString("LocalDb");
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<User>(
-    options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ShopDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>()
+               .AddDefaultTokenProviders()
+               .AddDefaultUI()
+               .AddEntityFrameworkStores<ShopDbContext>();
 
 // Add Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
@@ -47,6 +51,15 @@ builder.Services.AddSession(options =>
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+// seed roles and admin
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+
+    Seeder.SeedRoles(serviceProvider).Wait();
+    Seeder.SeedAdmin(serviceProvider).Wait();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
