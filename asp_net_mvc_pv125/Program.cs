@@ -40,6 +40,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddSession(options =>
 {

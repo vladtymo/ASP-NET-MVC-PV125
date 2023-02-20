@@ -11,11 +11,15 @@ namespace asp_net_mvc_pv125.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrdersService ordersService;
-        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private readonly IMailService mailService;
 
-        public OrdersController(IOrdersService ordersService)
+        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private string Username => User.FindFirstValue(ClaimTypes.Name);
+
+        public OrdersController(IOrdersService ordersService, IMailService mailService)
         {
             this.ordersService = ordersService;
+            this.mailService = mailService;
         }
 
         public IActionResult Index()
@@ -26,6 +30,10 @@ namespace asp_net_mvc_pv125.Controllers
         public IActionResult Create()
         {
             ordersService.Create(UserId);
+
+            // send message
+            mailService.SendMailAsync("Order confirmation", "<h2 style='color: darkcyan;'>Order information</h2><p>Order was successfully confirmed!</p>", Username);
+
             return RedirectToAction(nameof(Index));
         }
     }

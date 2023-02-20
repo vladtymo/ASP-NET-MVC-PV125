@@ -1,7 +1,9 @@
 ﻿using BusinessLogic.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
+using MailKit;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
