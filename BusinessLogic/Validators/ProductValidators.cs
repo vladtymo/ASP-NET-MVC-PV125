@@ -1,9 +1,10 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Entities;
 using FluentValidation;
 
 namespace BusinessLogic.Validators
 {
-    public class ProductValidators : AbstractValidator<Product>
+    public class ProductValidators : AbstractValidator<ProductDto>
     {
         public ProductValidators()
         {
@@ -15,8 +16,11 @@ namespace BusinessLogic.Validators
             RuleFor(x => x.Price)
                 .GreaterThanOrEqualTo(0).WithMessage("Value {PropertyValue} is incorrect. {PropertyName} must be greater than or equal to 0");
 
-            RuleFor(x => x.ImagePath)
-                .Must(LinkMustBeAUri).WithMessage("{PropertyName} has incorrect URL format");
+            RuleFor(x => x.Image)
+                .NotNull().WithMessage("Product image is required!");
+
+            //RuleFor(x => x.ImagePath)
+            //    .Must(LinkMustBeAUri).WithMessage("{PropertyName} has incorrect URL format");
         }
 
         private static bool LinkMustBeAUri(string? link)

@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Entities;
 
 namespace BusinessLogic.Services
 {
@@ -8,7 +9,7 @@ namespace BusinessLogic.Services
         List<Product> GetAll();
         List<Product> Get(int[] ids);
         Product? Get(int id);
-        void Create(Product product);
+        void Create(ProductDto product);
         void Edit(Product product);
         void Delete(int id);
     }

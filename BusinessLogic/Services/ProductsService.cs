@@ -1,4 +1,6 @@
-﻿using DataAccess;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Interfaces;
+using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
 
@@ -9,17 +11,29 @@ namespace BusinessLogic.Services
         //private readonly ShopDbContext context;
         private readonly IRepository<Product> productRepo;
         private readonly IRepository<Category> categoryRepo;
+        private readonly IFileService fileService;
 
         public ProductsService(IRepository<Product> productRepo,
-                               IRepository<Category> categoryRepo)
+                               IRepository<Category> categoryRepo,
+                               IFileService fileService)
         {
             this.productRepo = productRepo;
             this.categoryRepo = categoryRepo;
+            this.fileService = fileService;
         }
 
-        public void Create(Product product)
+        public void Create(ProductDto product)
         {
-            productRepo.Insert(product);
+            // save image to the server
+            string imagePath = fileService.SaveProductImage(product.Image);
+
+            productRepo.Insert(new Product()
+            {
+                Name = product.Name,
+                Price = product.Price,
+                CategoryId = product.CategoryId,
+                ImagePath = imagePath
+            });
             productRepo.Save();
         }
 
@@ -29,6 +43,8 @@ namespace BusinessLogic.Services
 
             if (product == null) return;
 
+            // delete image from the server: fileService.DeleteProductImage()
+
             // delete element from db
             productRepo.Delete(product);
             productRepo.Save();
@@ -36,6 +52,9 @@ namespace BusinessLogic.Services
 
         public void Edit(Product product)
         {
+            // delete old image from the server: fileService.DeleteProductImage()
+            // save new image to the server: fileService.SaveProductImage()
+
             productRepo.Update(product);
             productRepo.Save();
         }

@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Services;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace asp_net_mvc_pv125.Controllers
 
         // POST: ~/Products/Create
         [HttpPost]
-        public IActionResult Create(Product product) // product - model
+        public IActionResult Create(ProductDto product) // product - model
         {
             // validations
             if (!ModelState.IsValid)
