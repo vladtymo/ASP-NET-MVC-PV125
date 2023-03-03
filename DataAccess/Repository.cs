@@ -1,4 +1,6 @@
-﻿using DataAccess.Interfaces;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,61 @@ namespace DataAccess
             context.SaveChanges();
         }
 
+        public virtual IEnumerable<TEntity> GetAll()
+        {
+            return dbSet.ToList();
+        }
+
+        public virtual TEntity? GetByID(object id)
+        {
+            return dbSet.Find(id);
+        }
+
+        public virtual void Insert(TEntity entity)
+        {
+            dbSet.Add(entity);
+        }
+
+        public virtual void Delete(object id)
+        {
+            TEntity? entityToDelete = dbSet.Find(id);
+            if (entityToDelete != null)
+                Delete(entityToDelete);
+        }
+
+        public virtual void Delete(TEntity entityToDelete)
+        {
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
+        }
+
+        public virtual void Update(TEntity entityToUpdate)
+        {
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        // working with specifications
+        public IEnumerable<TEntity> GetListBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).ToList();
+        }
+
+        public TEntity? GetItemBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).FirstOrDefault();
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(dbSet, specification);
+        }
+
+        // to delete
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
@@ -50,37 +107,6 @@ namespace DataAccess
             {
                 return query.ToList();
             }
-        }
-
-        public virtual TEntity GetByID(object id)
-        {
-            return dbSet.Find(id);
-        }
-
-        public virtual void Insert(TEntity entity)
-        {
-            dbSet.Add(entity);
-        }
-
-        public virtual void Delete(object id)
-        {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
-        }
-
-        public virtual void Delete(TEntity entityToDelete)
-        {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                dbSet.Attach(entityToDelete);
-            }
-            dbSet.Remove(entityToDelete);
-        }
-
-        public virtual void Update(TEntity entityToUpdate)
-        {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

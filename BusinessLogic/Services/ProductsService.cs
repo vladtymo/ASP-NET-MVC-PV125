@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.DTOs;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Specifications;
 using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
@@ -77,7 +78,8 @@ namespace BusinessLogic.Services
         public List<ProductDto> GetAll()
         {
             // include properties: LEFT JOIN in SQL
-            var result = productRepo.Get(includeProperties: new[] { "Category" }).ToList();
+            //var result = productRepo.Get(orderBy: x => x.OrderBy(p => p.Name), includeProperties: new[] { "Category" }).ToList();
+            var result = productRepo.GetListBySpec(new Products.OrderedAll());
 
             return mapper.Map<List<ProductDto>>(result);
         }
@@ -87,7 +89,8 @@ namespace BusinessLogic.Services
             if (id < 0) return null; // exception
 
             // get product by id
-            var product = productRepo.GetByID(id);
+            //var product = productRepo.GetByID(id);
+            var product = productRepo.GetItemBySpec(new Products.ById(id));
 
             //if (product == null) return null; // exception
 
@@ -105,12 +108,13 @@ namespace BusinessLogic.Services
 
         public List<Category> GetCategories()
         {
-            return categoryRepo.Get().ToList();
+            return categoryRepo.GetAll().ToList();
         }
 
         public List<ProductDto> Get(int[] ids)
         {
-            var result = productRepo.Get(x => ids.Contains(x.Id)).ToList();
+            //var result = productRepo.Get(x => ids.Contains(x.Id)).ToList();
+            var result = productRepo.GetListBySpec(new Products.ByIds(ids));
 
             return mapper.Map<List<ProductDto>>(result);
         }
