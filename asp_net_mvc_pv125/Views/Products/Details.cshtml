@@ -8,7 +8,7 @@
         </div>
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">
-            @Model.CategoryName
+            @(Model.CategoryName ?? "category not loaded")
             <span class="badge bg-primary">@Model.Price$</span>
         </p>
 
