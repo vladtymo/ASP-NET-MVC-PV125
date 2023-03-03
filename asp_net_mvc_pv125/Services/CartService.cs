@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.DTOs;
 using BusinessLogic.Services;
 using DataAccess.Entities;
 
@@ -16,11 +17,11 @@ namespace asp_net_mvc_pv125.Services
             this.httpContext = httpContextAccessor.HttpContext;
         }
 
-        public List<Product> GetProducts()
+        public List<ProductDto> GetProducts()
         {
             var productIds = httpContext.Session.GetObject<List<int>>("cart");
 
-            List<Product> products = new List<Product>();
+            List<ProductDto> products = new();
 
             if (productIds != null)
                 products = productsService.Get(productIds.ToArray());

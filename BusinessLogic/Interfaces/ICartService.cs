@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BusinessLogic
 {
     public interface ICartService
     {
-        List<Product> GetProducts();
+        List<ProductDto> GetProducts();
         void Add(int productId);
         void Remove(int productId);
         bool IsInCart(int productId);

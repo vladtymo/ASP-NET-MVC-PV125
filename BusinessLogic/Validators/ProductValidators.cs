@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace BusinessLogic.Validators
 {
-    public class ProductValidators : AbstractValidator<ProductDto>
+    public class ProductValidators : AbstractValidator<CreateProductDto>
     {
         public ProductValidators()
         {

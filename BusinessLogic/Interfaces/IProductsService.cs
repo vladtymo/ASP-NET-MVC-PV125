@@ -6,11 +6,11 @@ namespace BusinessLogic.Services
     public interface IProductsService
     {
         List<Category> GetCategories();
-        List<Product> GetAll();
-        List<Product> Get(int[] ids);
-        Product? Get(int id);
-        void Create(ProductDto product);
-        void Edit(Product product);
+        List<ProductDto> GetAll();
+        List<ProductDto> Get(int[] ids);
+        ProductDto? Get(int id);
+        void Create(CreateProductDto product);
+        void Edit(ProductDto product);
         void Delete(int id);
     }
 }

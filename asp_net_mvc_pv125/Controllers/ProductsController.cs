@@ -57,7 +57,7 @@ namespace asp_net_mvc_pv125.Controllers
 
         // POST: ~/Products/Create
         [HttpPost]
-        public IActionResult Create(ProductDto product) // product - model
+        public IActionResult Create(CreateProductDto product) // product - model
         {
             // validations
             if (!ModelState.IsValid)
@@ -84,7 +84,7 @@ namespace asp_net_mvc_pv125.Controllers
 
         // POST: ~/Products/Edit
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductDto product)
         {
             // validations
             if (!ModelState.IsValid)

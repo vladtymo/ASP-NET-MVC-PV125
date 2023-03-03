@@ -1,4 +1,4 @@
-﻿@model DataAccess.Entities.Product;
+﻿@model BusinessLogic.DTOs.ProductDto;
 
 <div class="card text-center">
     <h2 class="card-header">Product Detail Information</h2>
@@ -8,7 +8,7 @@
         </div>
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">
-            @Model.Category
+            @Model.CategoryName
             <span class="badge bg-primary">@Model.Price$</span>
         </p>
 

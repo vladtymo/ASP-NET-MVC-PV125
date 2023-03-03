@@ -1,8 +1,10 @@
-﻿using BusinessLogic.DTOs;
+﻿using AutoMapper;
+using BusinessLogic.DTOs;
 using BusinessLogic.Interfaces;
 using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
+using Org.BouncyCastle.Crypto;
 
 namespace BusinessLogic.Services
 {
@@ -12,17 +14,20 @@ namespace BusinessLogic.Services
         private readonly IRepository<Product> productRepo;
         private readonly IRepository<Category> categoryRepo;
         private readonly IFileService fileService;
+        private readonly IMapper mapper;
 
         public ProductsService(IRepository<Product> productRepo,
                                IRepository<Category> categoryRepo,
-                               IFileService fileService)
+                               IFileService fileService,
+                               IMapper mapper)
         {
             this.productRepo = productRepo;
             this.categoryRepo = categoryRepo;
             this.fileService = fileService;
+            this.mapper = mapper;
         }
 
-        public void Create(ProductDto product)
+        public void Create(CreateProductDto product)
         {
             // save image to the server
             string imagePath = fileService.SaveProductImage(product.Image);
@@ -50,22 +55,34 @@ namespace BusinessLogic.Services
             productRepo.Save();
         }
 
-        public void Edit(Product product)
+        public void Edit(ProductDto dto)
         {
             // delete old image from the server: fileService.DeleteProductImage()
             // save new image to the server: fileService.SaveProductImage()
 
-            productRepo.Update(product);
+            //var entity = new Product()
+            //{
+            //    Id = dto.Id,
+            //    Name = dto.Name,
+            //    Price = dto.Price,
+            //    ImagePath = dto.ImagePath,
+            //    CategoryId = dto.CategoryId
+            //};
+            var entity = mapper.Map<Product>(dto);
+
+            productRepo.Update(entity);
             productRepo.Save();
         }
 
-        public List<Product> GetAll()
+        public List<ProductDto> GetAll()
         {
             // include properties: LEFT JOIN in SQL
-            return productRepo.Get(includeProperties: new[] { "Category" }).ToList();
+            var result = productRepo.Get(includeProperties: new[] { "Category" }).ToList();
+
+            return mapper.Map<List<ProductDto>>(result);
         }
 
-        public Product? Get(int id)
+        public ProductDto? Get(int id)
         {
             if (id < 0) return null; // exception
 
@@ -74,7 +91,16 @@ namespace BusinessLogic.Services
 
             //if (product == null) return null; // exception
 
-            return product;
+            //return new ProductDto()
+            //{
+            //    Id = product.Id,
+            //    Name = product.Name,
+            //    Price = product.Price,
+            //    ImagePath = product.ImagePath,
+            //    CategoryId = product.CategoryId,
+            //    CategoryName = product.Category?.Name
+            //};
+            return mapper.Map<ProductDto>(product);
         }
 
         public List<Category> GetCategories()
@@ -82,9 +108,11 @@ namespace BusinessLogic.Services
             return categoryRepo.Get().ToList();
         }
 
-        public List<Product> Get(int[] ids)
+        public List<ProductDto> Get(int[] ids)
         {
-            return productRepo.Get(x => ids.Contains(x.Id)).ToList();
+            var result = productRepo.Get(x => ids.Contains(x.Id)).ToList();
+
+            return mapper.Map<List<ProductDto>>(result);
         }
     }
 }

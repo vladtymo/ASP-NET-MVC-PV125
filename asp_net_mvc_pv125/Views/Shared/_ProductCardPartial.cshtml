@@ -1,6 +1,6 @@
 ﻿@using BusinessLogic
 
-@model DataAccess.Entities.Product
+@model BusinessLogic.DTOs.ProductDto
 @inject ICartService CartService
 
 <div class="col">
@@ -34,7 +34,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">@Model.Name</h5>
                 <p class="card-text">
-                    @Model.Category.Name
+                    @Model.CategoryName
                     <span class="badge bg-primary">@Model.Price$</span>
                 </p>
 

@@ -30,6 +30,9 @@ builder.Services.AddIdentity<User, IdentityRole>()
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
+// Add auto mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Add Custom Services types:
 //  - Singleton: IoC container will create and share a single instance of a service throughout the application's lifetime.
 //  - Scoped: IoC container will create an instance of the specified service type once per request and will be shared in a single request.
