@@ -33,11 +33,5 @@ namespace DataAccess.Interfaces
         IEnumerable<TEntity> GetListBySpec(ISpecification<TEntity> specification);
 
         void Save();
-
-        // to delete
-        IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            params string[] includeProperties);
     }
 }

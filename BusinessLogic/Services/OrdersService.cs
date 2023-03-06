@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Interfaces;
+using BusinessLogic.Specifications;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
 using MailKit;
@@ -38,7 +39,7 @@ namespace BusinessLogic.Services
 
         public IEnumerable<Order> GetAll(string userId)
         {
-            return orderRepo.Get(x => x.UserId == userId);
+            return orderRepo.GetListBySpec(new Orders.ByUser(userId));
         }
     }
 }
