@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using BusinessLogic.DTOs;
-using BusinessLogic.Interfaces;
-using BusinessLogic.Specifications;
-using DataAccess;
-using DataAccess.Entities;
-using DataAccess.Interfaces;
+using Core.DTOs;
+using Core.Entities;
+using Core.Interfaces;
+using Core.Specifications;
 using Org.BouncyCastle.Crypto;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public class ProductsService : IProductsService
     {
@@ -45,7 +43,7 @@ namespace BusinessLogic.Services
 
         public void Delete(int id)
         {
-            var product = Get(id);
+            var product = productRepo.GetByID(id);
 
             if (product == null) return;
 

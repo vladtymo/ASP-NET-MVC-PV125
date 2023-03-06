@@ -1,7 +1,6 @@
 ﻿using asp_net_mvc_pv125.Services;
-using BusinessLogic;
-using BusinessLogic.Services;
-using DataAccess.Entities;
+using Core;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 

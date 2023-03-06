@@ -1,11 +1,11 @@
-﻿using BusinessLogic.Interfaces;
+﻿using Core.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public class MailService : IMailService
     {

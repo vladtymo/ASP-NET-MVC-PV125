@@ -1,6 +1,5 @@
-﻿using BusinessLogic;
-using BusinessLogic.Interfaces;
-using DataAccess.Entities;
+﻿using Core;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

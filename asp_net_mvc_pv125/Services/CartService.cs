@@ -1,7 +1,6 @@
-﻿using BusinessLogic;
-using BusinessLogic.DTOs;
-using BusinessLogic.Services;
-using DataAccess.Entities;
+﻿using Core;
+using Core.DTOs;
+using Core.Services;
 
 namespace asp_net_mvc_pv125.Services
 {

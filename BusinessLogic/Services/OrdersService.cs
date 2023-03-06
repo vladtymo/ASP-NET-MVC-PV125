@@ -1,7 +1,6 @@
-﻿using BusinessLogic.Interfaces;
-using BusinessLogic.Specifications;
-using DataAccess.Entities;
-using DataAccess.Interfaces;
+﻿using Core.Entities;
+using Core.Interfaces;
+using Core.Specifications;
 using MailKit;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public class OrdersService : IOrdersService
     {

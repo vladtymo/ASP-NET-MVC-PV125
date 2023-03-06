@@ -1,5 +1,5 @@
 ﻿using DataAccess;
-using DataAccess.Entities;
+using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

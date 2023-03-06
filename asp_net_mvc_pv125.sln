@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asp_net_mvc_pv125", "asp_net_mvc_pv125\asp_net_mvc_pv125.csproj", "{03126859-130B-4D72-B864-3BD5542BC68F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A386A6B5-7454-447C-A5EC-9AEAB227A45D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "DataAccess\Infrastructure.csproj", "{A386A6B5-7454-447C-A5EC-9AEAB227A45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{5123A655-48E0-4339-84A1-2131E9E7C120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "BusinessLogic\Core.csproj", "{5123A655-48E0-4339-84A1-2131E9E7C120}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

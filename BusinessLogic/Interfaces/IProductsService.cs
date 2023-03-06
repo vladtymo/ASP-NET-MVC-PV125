@@ -1,7 +1,7 @@
-﻿using BusinessLogic.DTOs;
-using DataAccess.Entities;
+﻿using Core.DTOs;
+using Core.Entities;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public interface IProductsService
     {

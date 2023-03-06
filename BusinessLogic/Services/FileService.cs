@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Interfaces;
+﻿using Core.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public class FileService : IFileService
     {

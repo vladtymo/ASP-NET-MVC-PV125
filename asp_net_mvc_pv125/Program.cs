@@ -1,17 +1,16 @@
 using asp_net_mvc_pv125.Services;
-using BusinessLogic;
-using BusinessLogic.Services;
+using Core;
+using Core.Services;
 using DataAccess;
-using DataAccess.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using DataAccess.Entities;
-using BusinessLogic.Interfaces;
+using Core.Interfaces;
 using Microsoft.Extensions.Hosting;
 using asp_net_mvc_pv125;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

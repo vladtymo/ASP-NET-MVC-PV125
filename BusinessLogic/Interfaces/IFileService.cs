@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Interfaces
+namespace Core.Interfaces
 {
     public interface IFileService
     {

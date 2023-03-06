@@ -1,12 +1,11 @@
-﻿using BusinessLogic.DTOs;
-using DataAccess.Entities;
+﻿using Core.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace Core
 {
     public interface ICartService
     {

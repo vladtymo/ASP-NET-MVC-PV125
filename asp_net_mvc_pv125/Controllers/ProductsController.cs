@@ -1,6 +1,6 @@
-﻿using BusinessLogic.DTOs;
-using BusinessLogic.Services;
-using DataAccess.Entities;
+﻿using Core.DTOs;
+using Core.Entities;
+using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
