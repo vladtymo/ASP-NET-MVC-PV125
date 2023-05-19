@@ -9,7 +9,7 @@ namespace Core.Interfaces
 {
     public interface IFileService
     {
-        string SaveProductImage(IFormFile file);
-        void DeleteProductImage(string path);
+        Task<string> SaveProductImage(IFormFile file);
+        Task DeleteProductImage(string path);
     }
 }

@@ -28,8 +28,10 @@ namespace Core.Services
 
         public void Create(CreateProductDto product)
         {
+            // TODO: rewrite to async methods
+
             // save image to the server
-            string imagePath = fileService.SaveProductImage(product.Image);
+            string imagePath = fileService.SaveProductImage(product.Image).Result;
 
             productRepo.Insert(new Product()
             {

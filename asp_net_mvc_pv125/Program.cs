@@ -43,7 +43,11 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IMailService, MailService>();
-builder.Services.AddScoped<IFileService, FileService>();
+
+//builder.Services.AddScoped<IFileService, LocalFileService>();
+// change storage place from local to Azure
+builder.Services.AddScoped<IFileStorageService, AzureStorageService>();
+builder.Services.AddScoped<IFileService, AzureFileService>();
 
 builder.Services.AddSession(options =>
 {

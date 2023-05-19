@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public class FileService : IFileService
+    public class LocalFileService : IFileService
     {
         private const string imageFolder = "images";
         private readonly IWebHostEnvironment environment;
 
-        public FileService(IWebHostEnvironment environment)
+        public LocalFileService(IWebHostEnvironment environment)
         {
             this.environment = environment;
         }
 
-        public void DeleteProductImage(string path)
+        public Task DeleteProductImage(string path)
         {
             throw new NotImplementedException();
         }
 
-        public string SaveProductImage(IFormFile file)
+        public async Task<string> SaveProductImage(IFormFile file)
         {
             // get image destination path
             string root = environment.WebRootPath;      // wwwroot
@@ -39,7 +39,7 @@ namespace Core.Services
             // save image on the folder
             using (FileStream fs = new FileStream(imageFullPath, FileMode.Create))
             {
-                file.CopyTo(fs);
+                await file.CopyToAsync(fs);
             }
 
             // return image file path
